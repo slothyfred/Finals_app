@@ -15,6 +15,8 @@
                 <li>{{$error}}</li>
             @endforeach
         </ul>
+
+        @endif
     </div>
     <form method="post" action="{{route('product.update', ['product' => $product])}}">
         @csrf 
