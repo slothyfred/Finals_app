@@ -4,43 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Edit Product</title>
+    @vite('resources/css/app.css')
+    <link href="/css/app.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Edit Products</h1>
-    <div>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <h1 class="text-2xl font-bold mb-4">Edit Products</h1>
         @if($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{$error}}</li>
-            @endforeach
-        </ul>
-
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
         @endif
+        <form method="post" action="{{route('product.update', ['product' => $product])}}">
+            @csrf
+            @method('put')
+            <div class="mb-4">
+                <label class="block font-bold mb-2">Name</label>
+                <input type="text" name="name" placeholder="Name" value="{{$product->name}}" class="w-full p-2 border rounded"/>
+            </div>
+            <div class="mb-4">
+                <label class="block font-bold mb-2">Qty</label>
+                <input type="text" name="qty" placeholder="Qty" value="{{$product->qty}}" class="w-full p-2 border rounded"/>
+            </div>
+            <div class="mb-4">
+                <label class="block font-bold mb-2">Price</label>
+                <input type="text" name="price" placeholder="Price" value="{{$product->price}}" class="w-full p-2 border rounded"/>
+            </div>
+            <div class="mb-4">
+                <label class="block font-bold mb-2">Description</label>
+                <input type="text" name="description" placeholder="Description" value="{{$product->description}}" class="w-full p-2 border rounded"/>
+            </div>
+            <div>
+                <input type="submit" value="Update" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"/>
+            </div>
+        </form>
     </div>
-    <form method="post" action="{{route('product.update', ['product' => $product])}}">
-        @csrf 
-        @method('put')
-        <div>
-            <label>Name</label>
-            <input type="text" name="name" placeholder="Name" value="{{$product->name}}" />
-        </div>
-        <div>
-            <label>Qty</label>
-            <input type="text" name="qty" placeholder="Qty" value="{{$product->qty}}" />
-        </div>
-        <div>
-            <label>Price</label>
-            <input type="text" name="price" placeholder="Price" value="{{$product->price}}" />
-        </div>
-        <div>
-            <label>Description</label>
-            <input type="text" name="description" placeholder="Description" value="{{$product->description}}" />
-        </div>
-        <div>
-            <input type="submit" value="Update" />
-        </div>
-    </form>
-
 </body>
 </html>
